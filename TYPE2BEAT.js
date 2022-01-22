@@ -30,7 +30,7 @@ var wasPlaying = false;
 function ParameterChanged(pNum, pVal) {
 	if (pNum == 1) {
 	    Trace("changed text....");
-	    INPUT = INPUT_STRINGS[pVal]
+	    INPUT = INPUT_STRINGS[pVal];
 	    string = INPUT;
 	}
 }
@@ -109,7 +109,7 @@ var PluginParameters = [{
     minValue: 0,
     maxValue: 127,
     numberOfSteps: 128,
-    defaultValue: 15
+    defaultValue: 60
 }, {
     name: "Beat Division",
     type: "linear",
