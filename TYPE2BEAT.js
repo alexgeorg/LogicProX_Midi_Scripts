@@ -5,15 +5,35 @@
  * A PlugIn that creates a beat / a note pattern from an input string (idea is based on TypeDrummer).
  * INPUT has to be changed within the editor. Haven't come up with a better solution yet, sorry.
  */
+ 
+var INPUT_STRINGS = [
+    "The quick brown fox jumped over the lazy dog",
+    "Tension, apprehension, and dissension have begun.",
+    "Now is the time for all good men to come to the aid of their country.",
+    "call me Ishmael."
+];
+
+ 
 //--------------------------------------------------------------------------------------------------------------------------------------
-var INPUT = "Ryan Gosling is a handsome man!"; // Change it up!!!
+//var INPUT = "I said nothing, and tried to think nothing."; // Change it up!!!
 //--------------------------------------------------------------------------------------------------------------------------------------
+var INPUT = INPUT_STRINGS[0];
+
 
 var string = INPUT;
 var currentStep = 0;
 
 NeedsTimingInfo = true;
 var wasPlaying = false;
+
+
+function ParameterChanged(pNum, pVal) {
+	if (pNum == 1) {
+	    Trace("changed text....");
+	    INPUT = INPUT_STRINGS[pVal]
+	    string = INPUT;
+	}
+}
 
 function ProcessMIDI() {
     var info = GetTimingInfo();
@@ -74,8 +94,14 @@ var PluginParameters = [{
     name: "🥁 TYPE2BEAT",
     type: "text",
 },{
-    name: "Text: " + INPUT,
-    type: "text",
+    name: "Text",
+    type: "menu",
+    valueStrings: INPUT_STRINGS,
+    minValue: 0,
+    maxValue: INPUT_STRINGS.length -1,
+    numberOfSteps: INPUT_STRINGS.length,
+    defaultValue: 0
+    
 }, {
     name: "A → ",
     type: "menu",
@@ -83,7 +109,7 @@ var PluginParameters = [{
     minValue: 0,
     maxValue: 127,
     numberOfSteps: 128,
-    defaultValue: 60
+    defaultValue: 15
 }, {
     name: "Beat Division",
     type: "linear",
